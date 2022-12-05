@@ -1,14 +1,14 @@
 {
-  "name": "com.realitytoolkit.UPMTEMPLATE",
-  "displayName": "RealityToolkit.UPMTEMPLATE",
-  "description": "The UPMTEMPLATE framework of the Reality Toolkit by the Reality Collective",
+  "name": "com.realitytoolkit.devicesimulation",
+  "displayName": "RealityToolkit.DeviceSimulation",
+  "description": "Development extnsion for the Reality Toolkit implementing simulated controller devices and headsets for faster iteration.",
   "keywords": [
     "VR",
     "AR",
     "XR",
     "Mixed Reality"
   ],
-  "version": "1.0.0-preview.3",
+  "version": "1.0.0-preview.0",
   "unity": "2020.3",
   "homepage": "https://github.com/realitycollective",
   "bugs": {
@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/realitycollective/com.realitytoolkit.UPMTEMPLATE"
+    "url": "git+https://github.com/realitycollective/com.realitytoolkit.devicesimulation"
   },
   "author": {
     "name": "Reality Collective",
@@ -25,7 +25,8 @@
     "url": "https://github.com/realitycollective"
   },
   "dependencies": {
-    "com.realitytoolkit.core": "1.0.0-preview.1"
+    "com.realitytoolkit.core": "1.0.0-preview.10",
+    "com.unity.textmeshpro": "2.1.6"
   },
   "assets": [
     {
