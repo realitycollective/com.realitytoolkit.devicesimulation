@@ -1,10 +1,17 @@
 # Reality Toolkit - Device Simulation
 
+![GitHub](https://user-images.githubusercontent.com/9565734/206028194-d8296dac-888f-49d0-8029-e100a45f9aef.png)
+
 Development extnsion for the [Reality Toolkit](https://github.com/realitycollective/com.realitytoolkit.core) implementing simulated controller devices and headsets for faster iteration.
+
+[![openupm](https://img.shields.io/npm/v/com.realitytoolkit.devicesimulation?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.realitytoolkit.devicesimulation/)
+
+[![Discord](https://img.shields.io/discord/597064584980987924.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/KXABVsTa)
 
 ## What's included?
 
-TODO
+- Simulated hand tracking input device
+- Simulated generic motion controller input device
 
 ## Requirements
 
