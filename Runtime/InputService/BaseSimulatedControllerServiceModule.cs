@@ -112,7 +112,7 @@ namespace RealityToolkit.DeviceSimulation.InputService
             // Update all active simulated controllers.
             for (int i = 0; i < ActiveControllers.Count; i++)
             {
-                UpdateSimulatedController((IMixedRealitySimulatedController)ActiveControllers[i]);
+                UpdateSimulatedController((ISimulatedController)ActiveControllers[i]);
             }
         }
 
@@ -240,7 +240,7 @@ namespace RealityToolkit.DeviceSimulation.InputService
         /// Updates the provided simulated controller instance.
         /// </summary>
         /// <param name="simulatedController">Controller to update.</param>
-        protected virtual void UpdateSimulatedController(IMixedRealitySimulatedController simulatedController)
+        protected virtual void UpdateSimulatedController(ISimulatedController simulatedController)
         {
             simulatedController.UpdateController();
         }
@@ -249,6 +249,6 @@ namespace RealityToolkit.DeviceSimulation.InputService
         /// Asks the concrete simulation data create and register a new simulated controller.
         /// </summary>
         /// <param name="handedness">The handedness of the controller to create.</param>
-        protected abstract IMixedRealitySimulatedController CreateAndRegisterSimulatedController(Handedness handedness);
+        protected abstract ISimulatedController CreateAndRegisterSimulatedController(Handedness handedness);
     }
 }

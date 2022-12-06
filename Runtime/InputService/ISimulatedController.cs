@@ -6,7 +6,10 @@ using UnityEngine;
 
 namespace RealityToolkit.DeviceSimulation.InputService
 {
-    public interface IMixedRealitySimulatedController : IMixedRealityController
+    /// <summary>
+    /// Base interface for all simulated controller input devices.
+    /// </summary>
+    public interface ISimulatedController : IMixedRealityController
     {
         /// <summary>
         /// Gets a simulated Yaw, Pitch and Roll delta for the current frame.

@@ -2,13 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Definitions.Utilities;
+using RealityCollective.ServiceFramework.Attributes;
+using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.InputSystem.Controllers.Hands;
 using RealityToolkit.InputSystem.Definitions;
 using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Modules;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
     /// <summary>
     /// Hand controller type for simulated hand controllers.
     /// </summary>
+    [RuntimePlatform(typeof(EditorPlatform))]
     [System.Runtime.InteropServices.Guid("07512FFC-5128-434C-B7BF-5CD7CA8EF853")]
     public class SimulatedHandControllerServiceModule : BaseSimulatedControllerServiceModule, ISimulatedHandControllerServiceModule
     {
@@ -107,7 +109,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         private IReadOnlyList<HandControllerPoseProfile> TrackedPoses { get; }
 
         /// <inheritdoc />
-        protected override void UpdateSimulatedController(IMixedRealitySimulatedController simulatedController)
+        protected override void UpdateSimulatedController(ISimulatedController simulatedController)
         {
             // Ignore updates if the simulated controllers are not tracked, but only visible.
             if (simulatedController.ControllerHandedness == Handedness.Left && !LeftControllerIsTracked)
@@ -133,17 +135,17 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         }
 
         /// <inheritdoc />
-        protected override IMixedRealitySimulatedController CreateAndRegisterSimulatedController(Handedness handedness)
+        protected override ISimulatedController CreateAndRegisterSimulatedController(Handedness handedness)
         {
-            SimulatedMixedRealityHandController controller;
+            SimulatedHandController controller;
 
             try
             {
-                controller = new SimulatedMixedRealityHandController(this, TrackingState.Tracked, handedness, GetControllerMappingProfile(typeof(SimulatedMixedRealityHandController), handedness));
+                controller = new SimulatedHandController(this, TrackingState.Tracked, handedness, GetControllerMappingProfile(typeof(SimulatedHandController), handedness));
             }
             catch (Exception e)
             {
-                Debug.LogError($"Failed to create {nameof(SimulatedMixedRealityHandController)}!\n{e}");
+                Debug.LogError($"Failed to create {nameof(SimulatedHandController)}!\n{e}");
                 return null;
             }
 

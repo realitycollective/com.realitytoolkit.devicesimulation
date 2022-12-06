@@ -79,8 +79,8 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         {
             return new[]
             {
-                new ControllerDefinition(typeof(SimulatedMixedRealityHandController), Handedness.Left),
-                new ControllerDefinition(typeof(SimulatedMixedRealityHandController), Handedness.Right),
+                new ControllerDefinition(typeof(SimulatedHandController), Handedness.Left),
+                new ControllerDefinition(typeof(SimulatedHandController), Handedness.Right),
             };
         }
     }
