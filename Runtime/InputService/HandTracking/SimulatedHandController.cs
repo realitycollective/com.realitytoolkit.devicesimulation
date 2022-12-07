@@ -4,8 +4,8 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Controllers.Hands;
 using RealityToolkit.InputSystem.Extensions;
+using RealityToolkit.InputSystem.Hands;
 using RealityToolkit.InputSystem.Interfaces.Modules;
 using UnityEngine;
 

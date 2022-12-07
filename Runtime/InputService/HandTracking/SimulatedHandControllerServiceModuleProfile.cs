@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.InputSystem.Hands;
 using System.Collections.Generic;
 using UnityEngine;
 

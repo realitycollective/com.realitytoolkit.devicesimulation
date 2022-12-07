@@ -4,9 +4,9 @@
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.CameraSystem.Interfaces;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Definitions.Utilities;
+using RealityToolkit.InputSystem.Hands;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
