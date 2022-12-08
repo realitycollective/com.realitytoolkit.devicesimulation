@@ -5,7 +5,7 @@ using RealityToolkit.InputSystem.Hands;
 
 namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 {
-    public interface ISimulatedHandControllerServiceModule : ISimulatedControllerServiceModule, IMixedRealityHandControllerServiceModule
+    public interface ISimulatedHandControllerServiceModule : ISimulatedControllerServiceModule, IHandControllerServiceModule
     {
         /// <summary>
         /// Gets the simulated hand controller pose animation speed controlling

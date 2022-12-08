@@ -137,7 +137,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         public Vector3 JitterOffset { get; private set; } = Vector3.zero;
 
         /// <summary>
-        /// Gets simulated hand data for a <see cref="MixedRealityHandController"/>.
+        /// Gets simulated hand data for a <see cref="HandController"/>.
         /// </summary>
         /// <param name="position">The simulated camera space position of the hand controller.</param>
         /// <param name="deltaRotation">The rotation delta applied to the hand since last update.</param>
