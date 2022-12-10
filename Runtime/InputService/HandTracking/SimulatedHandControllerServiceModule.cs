@@ -14,10 +14,10 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
     /// </summary>
     [RuntimePlatform(typeof(EditorPlatform))]
     [System.Runtime.InteropServices.Guid("07512FFC-5128-434C-B7BF-5CD7CA8EF853")]
-    public class SimulatedHandControllerServiceModule : BaseHandControllerServiceModule, ISimulatedHandControllerServiceModule
+    public class SimulatedHandControllerServiceModule : BaseHandControllerServiceModule<SimulatedHandController>, ISimulatedHandControllerServiceModule
     {
         /// <inheritdoc />
-        public SimulatedHandControllerServiceModule(string name, uint priority, HandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        public SimulatedHandControllerServiceModule(string name, uint priority, SimulatedHandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
             : base(name, priority, profile, parentService) { }
     }
 }
