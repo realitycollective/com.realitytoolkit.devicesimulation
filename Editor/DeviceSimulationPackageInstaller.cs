@@ -3,8 +3,9 @@
 
 using RealityCollective.Editor.Utilities;
 using RealityCollective.Extensions;
+using RealityCollective.ServiceFramework.Editor;
+using RealityCollective.ServiceFramework.Editor.Packages;
 using RealityToolkit.Editor;
-using RealityToolkit.Editor.Utilities;
 using System.IO;
 using UnityEditor;
 
@@ -13,8 +14,8 @@ namespace RealityToolkit.DeviceSimulation.Editor
     [InitializeOnLoad]
     internal static class DeviceSimulationPackageInstaller
     {
-        private static readonly string DefaultPath = $"{MixedRealityPreferences.ProfileGenerationPath}DeviceSimulation";
-        private static readonly string HiddenPath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(DeviceSimulationPathFinder)).BackSlashes()}{Path.DirectorySeparatorChar}{MixedRealityPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
+        private static readonly string destinationPath = $"{MixedRealityPreferences.ProfileGenerationPath}DeviceSimulation";
+        private static readonly string sourcePath = Path.GetFullPath($"{PathFinderUtility.ResolvePath<IPathFinder>(typeof(DeviceSimulationPackagePathFinder)).BackSlashes()}{Path.DirectorySeparatorChar}{MixedRealityPreferences.HIDDEN_PACKAGE_ASSETS_PATH}");
 
         static DeviceSimulationPackageInstaller()
         {
@@ -24,7 +25,7 @@ namespace RealityToolkit.DeviceSimulation.Editor
         [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Packages/Install Device Simulation Package Assets...", true)]
         private static bool ImportPackageAssetsValidation()
         {
-            return !Directory.Exists($"{DefaultPath}{Path.DirectorySeparatorChar}");
+            return !Directory.Exists($"{destinationPath}{Path.DirectorySeparatorChar}");
         }
 
         [MenuItem(MixedRealityPreferences.Editor_Menu_Keyword + "/Packages/Install Device Simulation Package Assets...")]
@@ -38,7 +39,7 @@ namespace RealityToolkit.DeviceSimulation.Editor
         {
             if (!EditorPreferences.Get($"{nameof(DeviceSimulationPackageInstaller)}.Assets", false))
             {
-                EditorPreferences.Set($"{nameof(DeviceSimulationPackageInstaller)}.Assets", PackageInstaller.TryInstallAssets(HiddenPath, DefaultPath));
+                EditorPreferences.Set($"{nameof(DeviceSimulationPackageInstaller)}.Assets", AssetsInstaller.TryInstallAssets(sourcePath, destinationPath));
             }
         }
     }

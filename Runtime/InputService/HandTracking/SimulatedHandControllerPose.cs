@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
-using RealityToolkit.Definitions.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         public SimulatedHandControllerPose(SimulatedHandControllerPose pose)
         {
             Id = pose.Id;
-            LocalJointPoses = new MixedRealityPose[HandData.JointCount];
+            LocalJointPoses = new Pose[HandData.JointCount];
             SetZero();
             Array.Copy(pose.LocalJointPoses, LocalJointPoses, HandData.JointCount);
         }
@@ -31,7 +30,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         public SimulatedHandControllerPose(string id)
         {
             Id = id;
-            LocalJointPoses = new MixedRealityPose[HandData.JointCount];
+            LocalJointPoses = new Pose[HandData.JointCount];
             SetZero();
         }
 
@@ -53,7 +52,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         /// Joint poses are stored as right-hand poses in camera space.
         /// Output poses are computed in world space, and mirroring on the x axis for the left hand.
         /// </summary>
-        public MixedRealityPose[] LocalJointPoses { get; private set; }
+        public Pose[] LocalJointPoses { get; private set; }
 
         public static bool operator ==(SimulatedHandControllerPose left, SimulatedHandControllerPose right)
         {
@@ -135,13 +134,13 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
         private static void OffsetJointsRelativeToOpenPosePalmPosition(SimulatedHandControllerPose openPose, SimulatedHandControllerPose pose)
         {
-            Vector3 openHandPalmPosition = openPose.LocalJointPoses[(int)TrackedHandJoint.Palm].Position;
-            Vector3 posePalmPosition = pose.LocalJointPoses[(int)TrackedHandJoint.Palm].Position;
+            Vector3 openHandPalmPosition = openPose.LocalJointPoses[(int)TrackedHandJoint.Palm].position;
+            Vector3 posePalmPosition = pose.LocalJointPoses[(int)TrackedHandJoint.Palm].position;
             Vector3 offset = posePalmPosition - openHandPalmPosition;
 
             for (int i = 0; i < pose.LocalJointPoses.Length; i++)
             {
-                pose.LocalJointPoses[i].Position -= offset;
+                pose.LocalJointPoses[i].position -= offset;
             }
         }
 
@@ -152,7 +151,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         {
             for (int i = 0; i < LocalJointPoses.Length; i++)
             {
-                LocalJointPoses[i] = MixedRealityPose.ZeroIdentity;
+                LocalJointPoses[i] = Pose.identity;
             }
         }
 
@@ -170,10 +169,10 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
                 var jointPoseA = a.LocalJointPoses[i];
                 var jointPoseB = b.LocalJointPoses[i];
 
-                var position = Vector3.Lerp(jointPoseA.Position, jointPoseB.Position, t);
-                var rotation = Quaternion.Slerp(jointPoseA.Rotation, jointPoseB.Rotation, t);
+                var position = Vector3.Lerp(jointPoseA.position, jointPoseB.position, t);
+                var rotation = Quaternion.Slerp(jointPoseA.rotation, jointPoseB.rotation, t);
 
-                interpolatedPose.LocalJointPoses[i] = new MixedRealityPose(position, rotation);
+                interpolatedPose.LocalJointPoses[i] = new Pose(position, rotation);
             }
 
             interpolatedPose.Id = t >= 1 ? b.Id : a.Id;
