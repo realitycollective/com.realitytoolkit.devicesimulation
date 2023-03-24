@@ -3,10 +3,9 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraSystem.Interfaces;
+using RealityToolkit.CameraService.Interfaces;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Definitions.Utilities;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
@@ -20,10 +19,10 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
     /// </summary>
     public sealed class SimulatedHandDataConverter
     {
-        private static IMixedRealityCameraSystem cameraSystem = null;
+        private static ICameraService cameraService = null;
 
-        private static IMixedRealityCameraSystem CameraSystem
-            => cameraSystem ?? (cameraSystem = ServiceManager.Instance.GetService<IMixedRealityCameraSystem>());
+        private static ICameraService CameraService
+            => cameraService ?? (cameraService = ServiceManager.Instance.GetService<ICameraService>());
 
         private static Camera playerCamera = null;
 
@@ -33,7 +32,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = CameraSystem != null ? CameraSystem.MainCameraRig.PlayerCamera : CameraCache.Main;
+                    playerCamera = CameraService != null ? CameraService.CameraRig.PlayerCamera : Camera.main;
                 }
 
                 return playerCamera;
@@ -145,7 +144,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         public HandData GetSimulatedHandData(Vector3 position, Vector3 deltaRotation)
         {
             // Read keyboard / mouse input to determine the root pose delta since last frame.
-            var rootPoseDelta = new MixedRealityPose(position, Quaternion.Euler(deltaRotation));
+            var rootPoseDelta = new Pose(position, Quaternion.Euler(deltaRotation));
 
             // Calculate pose changes and compute timestamp for hand tracking update.
             var poseAnimationDelta = handPoseAnimationSpeed * Time.deltaTime;
@@ -171,23 +170,23 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             return handData;
         }
 
-        private void HandleSimulationInput(MixedRealityPose handRootPose)
+        private void HandleSimulationInput(Pose handRootPose)
         {
             var mousePos = Input.mousePosition;
             screenPosition = new Vector3(mousePos.x, mousePos.y, defaultDistance)
             {
                 // Apply position delta x / y in screen space, but depth (z) offset in world space
-                x = handRootPose.Position.x,
-                y = handRootPose.Position.y
+                x = handRootPose.position.x,
+                y = handRootPose.position.y
             };
 
             var newWorldPoint = PlayerCamera.ScreenToWorldPoint(ScreenPosition);
-            newWorldPoint += PlayerCamera.transform.forward * handRootPose.Position.z;
+            newWorldPoint += PlayerCamera.transform.forward * handRootPose.position.z;
             screenPosition = PlayerCamera.WorldToScreenPoint(newWorldPoint);
 
             // The provided hand root pose rotation is just a delta from the
             // previous frame, so we need to determine the final rotation still.
-            HandRotateEulerAngles += handRootPose.Rotation.eulerAngles;
+            HandRotateEulerAngles += handRootPose.rotation.eulerAngles;
             JitterOffset = Random.insideUnitSphere * jitterAmount;
         }
 
@@ -206,12 +205,12 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
             // At this point we know the hand's root pose in world space and
             // need to translate to the camera rig's local coordinate space.
-            var rootPose = new MixedRealityPose(position, rotation);
-            var rigTransform = CameraSystem != null
-                ? CameraSystem.MainCameraRig.RigTransform
-                : CameraCache.Main.transform.parent;
-            rootPose.Position = rigTransform.InverseTransformPoint(rootPose.Position);
-            rootPose.Rotation = Quaternion.Inverse(rigTransform.rotation) * rigTransform.rotation * rootPose.Rotation;
+            var rootPose = new Pose(position, rotation);
+            var rigTransform = CameraService != null
+                ? CameraService.CameraRig.RigTransform
+                : Camera.main.transform.parent;
+            rootPose.position = rigTransform.InverseTransformPoint(rootPose.position);
+            rootPose.rotation = Quaternion.Inverse(rigTransform.rotation) * rigTransform.rotation * rootPose.rotation;
 
             // Compute joint poses relative to root pose.
             var jointPoses = ComputeJointPoses(Pose, handedness);
@@ -222,16 +221,16 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         /// <summary>
         /// Computes local poses from camera-space joint data.
         /// </summary>
-        private MixedRealityPose[] ComputeJointPoses(SimulatedHandControllerPose pose, Handedness handedness)
+        private Pose[] ComputeJointPoses(SimulatedHandControllerPose pose, Handedness handedness)
         {
             var cameraRotation = PlayerCamera.transform.rotation;
-            var jointPoses = new MixedRealityPose[HandData.JointCount];
+            var jointPoses = new Pose[HandData.JointCount];
 
             for (int i = 0; i < HandData.JointCount; i++)
             {
                 // Initialize from local offsets
-                var localPosition = pose.LocalJointPoses[i].Position;
-                var localRotation = pose.LocalJointPoses[i].Rotation;
+                var localPosition = pose.LocalJointPoses[i].position;
+                var localRotation = pose.LocalJointPoses[i].rotation;
 
                 // Pose offset are for right hand, mirror on X axis if left hand is needed
                 if (handedness == Handedness.Left)
@@ -245,7 +244,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
                 localPosition = cameraRotation * localPosition;
                 localRotation = cameraRotation * localRotation;
 
-                jointPoses[i] = new MixedRealityPose(localPosition, localRotation);
+                jointPoses[i] = new Pose(localPosition, localRotation);
             }
 
             return jointPoses;
