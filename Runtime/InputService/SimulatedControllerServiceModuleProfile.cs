@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RealityToolkit.DeviceSimulation.InputService
 {
-    public class SimulatedControllerServiceModuleProfile : BaseMixedRealityControllerServiceModuleProfile
+    public class SimulatedControllerServiceModuleProfile : BaseControllerServiceModuleProfile
     {
         #region General Settings
 

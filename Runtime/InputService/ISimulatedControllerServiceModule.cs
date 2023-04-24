@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Interfaces.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.DeviceSimulation.InputService
 {
-    public interface ISimulatedControllerServiceModule : IMixedRealityControllerServiceModule
+    public interface ISimulatedControllerServiceModule : IControllerServiceModule
     {
         /// <summary>
         /// The simulated update frequency in milliseconds mimics the hardware's ability to

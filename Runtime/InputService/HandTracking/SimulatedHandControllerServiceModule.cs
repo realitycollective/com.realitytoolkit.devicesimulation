@@ -7,9 +7,9 @@ using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
 using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Controllers.Hands;
-using RealityToolkit.InputSystem.Definitions;
-using RealityToolkit.InputSystem.Interfaces;
+using RealityToolkit.Input.Controllers.Hands;
+using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Interfaces;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,45 +24,45 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
     public class SimulatedHandControllerServiceModule : BaseSimulatedControllerServiceModule, ISimulatedHandControllerServiceModule
     {
         /// <inheritdoc />
-        public SimulatedHandControllerServiceModule(string name, uint priority, SimulatedHandControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        public SimulatedHandControllerServiceModule(string name, uint priority, SimulatedHandControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
-            if (!ServiceManager.Instance.TryGetServiceProfile<IMixedRealityInputSystem, MixedRealityInputSystemProfile>(out var inputSystemProfile))
+            if (!ServiceManager.Instance.TryGetServiceProfile<IInputService, InputServiceProfile>(out var inputServiceProfile))
             {
-                throw new ArgumentException($"Unable to get a valid {nameof(MixedRealityInputSystemProfile)}!");
+                throw new ArgumentException($"Unable to get a valid {nameof(InputServiceProfile)}!");
             }
 
             HandPoseAnimationSpeed = profile.HandPoseAnimationSpeed;
 
-            RenderingMode = profile.RenderingMode != inputSystemProfile.RenderingMode
+            RenderingMode = profile.RenderingMode != inputServiceProfile.RenderingMode
                 ? profile.RenderingMode
-                : inputSystemProfile.RenderingMode;
+                : inputServiceProfile.RenderingMode;
 
-            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputSystemProfile.HandPhysicsEnabled
+            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputServiceProfile.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
-                : inputSystemProfile.HandPhysicsEnabled;
+                : inputServiceProfile.HandPhysicsEnabled;
 
-            UseTriggers = profile.UseTriggers != inputSystemProfile.UseTriggers
+            UseTriggers = profile.UseTriggers != inputServiceProfile.UseTriggers
                 ? profile.UseTriggers
-                : inputSystemProfile.UseTriggers;
+                : inputServiceProfile.UseTriggers;
 
-            BoundsMode = profile.BoundsMode != inputSystemProfile.BoundsMode
+            BoundsMode = profile.BoundsMode != inputServiceProfile.BoundsMode
                 ? profile.BoundsMode
-                : inputSystemProfile.BoundsMode;
+                : inputServiceProfile.BoundsMode;
 
-            var isGrippingThreshold = profile.GripThreshold != inputSystemProfile.GripThreshold
+            var isGrippingThreshold = profile.GripThreshold != inputServiceProfile.GripThreshold
                 ? profile.GripThreshold
-                : inputSystemProfile.GripThreshold;
+                : inputServiceProfile.GripThreshold;
 
             if (profile.TrackedPoses != null && profile.TrackedPoses.Count > 0)
             {
-                TrackedPoses = profile.TrackedPoses.Count != inputSystemProfile.TrackedPoses.Count
+                TrackedPoses = profile.TrackedPoses.Count != inputServiceProfile.TrackedPoses.Count
                     ? profile.TrackedPoses
-                    : inputSystemProfile.TrackedPoses;
+                    : inputServiceProfile.TrackedPoses;
             }
             else
             {
-                TrackedPoses = inputSystemProfile.TrackedPoses;
+                TrackedPoses = inputServiceProfile.TrackedPoses;
             }
 
             if (TrackedPoses == null || TrackedPoses.Count == 0)
@@ -121,7 +121,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
                 return;
             }
 
-            var simulatedHandController = (MixedRealityHandController)simulatedController;
+            var simulatedHandController = (HandController)simulatedController;
             var converter = simulatedHandController.ControllerHandedness == Handedness.Left
                 ? leftHandConverter
                 : rightHandConverter;
@@ -151,7 +151,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
             controller.TryRenderControllerModel();
 
-            InputSystem?.RaiseSourceDetected(controller.InputSource, controller);
+            InputService?.RaiseSourceDetected(controller.InputSource, controller);
             AddController(controller);
             return controller;
         }

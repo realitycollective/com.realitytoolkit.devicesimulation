@@ -136,7 +136,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         public Vector3 JitterOffset { get; private set; } = Vector3.zero;
 
         /// <summary>
-        /// Gets simulated hand data for a <see cref="MixedRealityHandController"/>.
+        /// Gets simulated hand data for a <see cref="HandController"/>.
         /// </summary>
         /// <param name="position">The simulated camera space position of the hand controller.</param>
         /// <param name="deltaRotation">The rotation delta applied to the hand since last update.</param>
@@ -172,7 +172,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
         private void HandleSimulationInput(Pose handRootPose)
         {
-            var mousePos = Input.mousePosition;
+            var mousePos = UnityEngine.Input.mousePosition;
             screenPosition = new Vector3(mousePos.x, mousePos.y, defaultDistance)
             {
                 // Apply position delta x / y in screen space, but depth (z) offset in world space
@@ -253,14 +253,14 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         /// <summary>
         /// Selects a hand pose to simulate, while its input keycode is pressed.
         /// </summary>
-        /// <returns>Default pose if no other fitting user input.</returns>
+        /// <returns>Default pose if no other fitting user UnityEngine.Input.</returns>
         private SimulatedHandControllerPose GetTargetHandPose()
         {
             for (int i = 0; i < poseDefinitions.Count; i++)
             {
                 var result = poseDefinitions[i];
 
-                if (Input.GetKey(result.KeyCode))
+                if (UnityEngine.Input.GetKey(result.KeyCode))
                 {
                     return SimulatedHandControllerPose.GetPoseByName(result.Id);
                 }

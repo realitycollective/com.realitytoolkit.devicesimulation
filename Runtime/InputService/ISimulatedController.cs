@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Reality Collective. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using RealityToolkit.InputSystem.Interfaces.Controllers;
+using RealityToolkit.Input.Interfaces.Controllers;
 using UnityEngine;
 
 namespace RealityToolkit.DeviceSimulation.InputService
@@ -9,7 +9,7 @@ namespace RealityToolkit.DeviceSimulation.InputService
     /// <summary>
     /// Base interface for all simulated controller input devices.
     /// </summary>
-    public interface ISimulatedController : IMixedRealityController
+    public interface ISimulatedController : IController
     {
         /// <summary>
         /// Gets a simulated Yaw, Pitch and Roll delta for the current frame.
