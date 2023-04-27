@@ -3,9 +3,9 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.Extensions;
-using RealityToolkit.InputSystem.Controllers;
-using RealityToolkit.InputSystem.Interfaces;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Controllers;
+using RealityToolkit.Input.Interfaces;
+using RealityToolkit.Input.Interfaces.Modules;
 using RealityToolkit.Utilities;
 using System;
 using UnityEngine;
@@ -18,7 +18,7 @@ namespace RealityToolkit.DeviceSimulation.InputService
     public abstract class BaseSimulatedControllerServiceModule : BaseControllerServiceModule, ISimulatedControllerServiceModule
     {
         /// <inheritdoc />
-        protected BaseSimulatedControllerServiceModule(string name, uint priority, SimulatedControllerServiceModuleProfile profile, IMixedRealityInputSystem parentService)
+        protected BaseSimulatedControllerServiceModule(string name, uint priority, SimulatedControllerServiceModuleProfile profile, IInputService parentService)
             : base(name, priority, profile, parentService)
         {
             if (profile.IsNull())
@@ -130,17 +130,17 @@ namespace RealityToolkit.DeviceSimulation.InputService
 
             if (msSinceLastUpdate > SimulatedUpdateFrequency)
             {
-                if (Input.GetKeyDown(ToggleLeftPersistentKey))
+                if (UnityEngine.Input.GetKeyDown(ToggleLeftPersistentKey))
                 {
                     LeftControllerIsAlwaysVisible = !LeftControllerIsAlwaysVisible;
                 }
 
-                if (Input.GetKeyDown(LeftControllerTrackedKey))
+                if (UnityEngine.Input.GetKeyDown(LeftControllerTrackedKey))
                 {
                     LeftControllerIsTracked = true;
                 }
 
-                if (Input.GetKeyUp(LeftControllerTrackedKey))
+                if (UnityEngine.Input.GetKeyUp(LeftControllerTrackedKey))
                 {
                     LeftControllerIsTracked = false;
                 }
@@ -157,17 +157,17 @@ namespace RealityToolkit.DeviceSimulation.InputService
                     RemoveController(Handedness.Left);
                 }
 
-                if (Input.GetKeyDown(ToggleRightPersistentKey))
+                if (UnityEngine.Input.GetKeyDown(ToggleRightPersistentKey))
                 {
                     RightControllerIsAlwaysVisible = !RightControllerIsAlwaysVisible;
                 }
 
-                if (Input.GetKeyDown(RightControllerTrackedKey))
+                if (UnityEngine.Input.GetKeyDown(RightControllerTrackedKey))
                 {
                     RightControllerIsTracked = true;
                 }
 
-                if (Input.GetKeyUp(RightControllerTrackedKey))
+                if (UnityEngine.Input.GetKeyUp(RightControllerTrackedKey))
                 {
                     RightControllerIsTracked = false;
                 }
@@ -196,7 +196,7 @@ namespace RealityToolkit.DeviceSimulation.InputService
         {
             if (TryGetController(handedness, out var controller))
             {
-                InputSystem?.RaiseSourceLost(controller.InputSource, controller);
+                InputService?.RaiseSourceLost(controller.InputSource, controller);
                 RemoveController(controller);
             }
         }

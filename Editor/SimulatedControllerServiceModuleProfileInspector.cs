@@ -3,14 +3,14 @@
 
 using RealityCollective.Editor.Extensions;
 using RealityToolkit.DeviceSimulation.InputService;
-using RealityToolkit.Editor.Profiles.InputSystem.Controllers;
+using RealityToolkit.Editor.Profiles.Input.Controllers;
 using UnityEditor;
 using UnityEngine;
 
 namespace RealityToolkit.DeviceSimulation.Editor
 {
     [CustomEditor(typeof(SimulatedControllerServiceModuleProfile))]
-    public class SimulatedControllerServiceModuleProfileInspector : BaseMixedRealityControllerServiceModuleProfileInspector
+    public class SimulatedControllerServiceModuleProfileInspector : BaseControllerServiceModuleProfileInspector
     {
         private static readonly GUIContent SimulationSettingsFoldoutHeader = new GUIContent("Simulation Settings");
 
