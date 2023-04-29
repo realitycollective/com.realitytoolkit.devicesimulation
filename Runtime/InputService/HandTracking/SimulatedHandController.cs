@@ -4,9 +4,9 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.InputSystem.Controllers.Hands;
-using RealityToolkit.InputSystem.Extensions;
-using RealityToolkit.InputSystem.Interfaces.Modules;
+using RealityToolkit.Input.Controllers.Hands;
+using RealityToolkit.Input.Extensions;
+using RealityToolkit.Input.Interfaces.Modules;
 using UnityEngine;
 
 namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
@@ -15,41 +15,41 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
     /// Hand controller type for simulated hand controllers.
     /// </summary>
     [System.Runtime.InteropServices.Guid("435C4F16-8E23-4228-B2B0-5FCE09A97043")]
-    public class SimulatedHandController : MixedRealityHandController, ISimulatedController
+    public class SimulatedHandController : HandController, ISimulatedController
     {
         /// <inheritdoc />
         public SimulatedHandController() : base() { }
 
         /// <inheritdoc />
-        public SimulatedHandController(IMixedRealityControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, MixedRealityControllerMappingProfile controllerMappingProfile)
+        public SimulatedHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         { }
 
         /// <inheritdoc />
-        public override MixedRealityInteractionMapping[] DefaultInteractions { get; } =
+        public override InteractionMapping[] DefaultInteractions { get; } =
         {
             // 6 DoF pose of the spatial pointer ("far interaction pointer").
-            new MixedRealityInteractionMapping("Spatial Pointer Pose", AxisType.SixDof, DeviceInputType.SpatialPointer),
+            new InteractionMapping("Spatial Pointer Pose", AxisType.SixDof, DeviceInputType.SpatialPointer),
             // Select / pinch button press / release.
-            new MixedRealityInteractionMapping("Select", AxisType.Digital, DeviceInputType.Select),
+            new InteractionMapping("Select", AxisType.Digital, DeviceInputType.Select),
             // Hand in pointing pose yes/no?
-            new MixedRealityInteractionMapping("Point", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Point", AxisType.Digital, DeviceInputType.ButtonPress),
             // Grip / grab button press / release.
-            new MixedRealityInteractionMapping("Grip", AxisType.Digital, DeviceInputType.TriggerPress),
+            new InteractionMapping("Grip", AxisType.Digital, DeviceInputType.TriggerPress),
             // 6 DoF grip pose ("Where to put things when grabbing something?")
-            new MixedRealityInteractionMapping("Grip Pose", AxisType.SixDof, DeviceInputType.SpatialGrip),
+            new InteractionMapping("Grip Pose", AxisType.SixDof, DeviceInputType.SpatialGrip),
             // 6 DoF index finger tip pose (mainly for "near interaction pointer").
-            new MixedRealityInteractionMapping("Index Finger Pose", AxisType.SixDof, DeviceInputType.IndexFinger),
+            new InteractionMapping("Index Finger Pose", AxisType.SixDof, DeviceInputType.IndexFinger),
             
             // Simulation specifics...
-            new MixedRealityInteractionMapping("Yaw Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.E),
-            new MixedRealityInteractionMapping("Yaw Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Q),
-            new MixedRealityInteractionMapping("Pitch Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.F),
-            new MixedRealityInteractionMapping("Pitch Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.R),
-            new MixedRealityInteractionMapping("Roll Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.X),
-            new MixedRealityInteractionMapping("Roll Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Z),
-            new MixedRealityInteractionMapping("Move Away (Depth)", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.PageUp),
-            new MixedRealityInteractionMapping("Move Closer (Depth)", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.PageDown)
+            new InteractionMapping("Yaw Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.E),
+            new InteractionMapping("Yaw Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Q),
+            new InteractionMapping("Pitch Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.F),
+            new InteractionMapping("Pitch Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.R),
+            new InteractionMapping("Roll Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.X),
+            new InteractionMapping("Roll Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Z),
+            new InteractionMapping("Move Away (Depth)", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.PageUp),
+            new InteractionMapping("Move Closer (Depth)", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.PageDown)
         };
 
         /// <inheritdoc />
@@ -98,7 +98,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         {
             UpdateSimulationMappings();
 
-            Vector3 mousePosition = Input.mousePosition;
+            Vector3 mousePosition = UnityEngine.Input.mousePosition;
 
             if (Interactions[12].BoolData)
             {
@@ -122,7 +122,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
                 switch (interactionMapping.InputType)
                 {
                     case DeviceInputType.ButtonPress:
-                        interactionMapping.BoolData = Input.GetKey(interactionMapping.KeyCode);
+                        interactionMapping.BoolData = UnityEngine.Input.GetKey(interactionMapping.KeyCode);
                         interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
                         break;
                 }
