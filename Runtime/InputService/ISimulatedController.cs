@@ -9,7 +9,7 @@ namespace RealityToolkit.DeviceSimulation.InputService
     /// <summary>
     /// Base interface for all simulated controller input devices.
     /// </summary>
-    public interface ISimulatedController : IMixedRealityController
+    public interface ISimulatedController : IController
     {
         /// <summary>
         /// Gets a simulated Yaw, Pitch and Roll delta for the current frame.
