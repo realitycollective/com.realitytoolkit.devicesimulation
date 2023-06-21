@@ -32,7 +32,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = CameraService != null ? CameraService.CameraRig.PlayerCamera : Camera.main;
+                    playerCamera = CameraService != null ? CameraService.CameraRig.RigCamera : Camera.main;
                 }
 
                 return playerCamera;
