@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Input.Hands;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -134,8 +135,8 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
         private static void OffsetJointsRelativeToOpenPosePalmPosition(SimulatedHandControllerPose openPose, SimulatedHandControllerPose pose)
         {
-            Vector3 openHandPalmPosition = openPose.LocalJointPoses[(int)TrackedHandJoint.Palm].position;
-            Vector3 posePalmPosition = pose.LocalJointPoses[(int)TrackedHandJoint.Palm].position;
+            Vector3 openHandPalmPosition = openPose.LocalJointPoses[(int)HandJoint.Palm].position;
+            Vector3 posePalmPosition = pose.LocalJointPoses[(int)HandJoint.Palm].position;
             Vector3 offset = posePalmPosition - openHandPalmPosition;
 
             for (int i = 0; i < pose.LocalJointPoses.Length; i++)
@@ -218,7 +219,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
             for (int i = 0; i < LocalJointPoses.Length; i++)
             {
-                record.Joints[i] = new RecordedHandJoint((TrackedHandJoint)i, LocalJointPoses[i]);
+                record.Joints[i] = new RecordedHandJoint((HandJoint)i, LocalJointPoses[i]);
             }
 
             return JsonUtility.ToJson(record);

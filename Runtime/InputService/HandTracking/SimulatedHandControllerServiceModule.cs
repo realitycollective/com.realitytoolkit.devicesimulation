@@ -34,10 +34,6 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
             HandPoseAnimationSpeed = profile.HandPoseAnimationSpeed;
 
-            RenderingMode = profile.RenderingMode != inputServiceProfile.HandControllerSettings.RenderingMode
-                ? profile.RenderingMode
-                : inputServiceProfile.HandControllerSettings.RenderingMode;
-
             HandPhysicsEnabled = profile.HandPhysicsEnabled != inputServiceProfile.HandControllerSettings.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
                 : inputServiceProfile.HandControllerSettings.HandPhysicsEnabled;
@@ -102,9 +98,6 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
         /// <inheritdoc />
         public HandBoundsLOD BoundsMode { get; set; }
-
-        /// <inheritdoc />
-        public HandRenderingMode RenderingMode { get; set; }
 
         private IReadOnlyList<HandControllerPoseProfile> TrackedPoses { get; }
 
