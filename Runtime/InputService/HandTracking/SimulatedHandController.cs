@@ -21,7 +21,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         public SimulatedHandController() : base() { }
 
         /// <inheritdoc />
-        public SimulatedHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
+        public SimulatedHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         { }
 
