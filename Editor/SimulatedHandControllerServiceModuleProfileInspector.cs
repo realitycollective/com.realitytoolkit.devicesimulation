@@ -2,8 +2,8 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using RealityCollective.Editor.Extensions;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.DeviceSimulation.InputService.HandTracking;
+using RealityToolkit.Input.Hands.Poses;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
