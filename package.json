@@ -25,9 +25,9 @@
     "url": "https://github.com/realitycollective"
   },
   "dependencies": {
-    "com.realitytoolkit.core": "1.0.0-pre.14",
-    "com.realitytoolkit.camera": "1.0.1-pre.2",
-    "com.unity.textmeshpro": "2.1.6"
+    "com.realitytoolkit.core": "1.0.0-pre.18",
+    "com.realitytoolkit.camera": "1.0.1-pre.5",
+    "com.unity.textmeshpro": "3.0.6"
   },
   "assets": [
     {
