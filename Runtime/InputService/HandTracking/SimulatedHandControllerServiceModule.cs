@@ -5,10 +5,10 @@ using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Attributes;
 using RealityCollective.ServiceFramework.Definitions.Platforms;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.Definitions.Controllers.Hands;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Input.Controllers.Hands;
 using RealityToolkit.Input.Definitions;
+using RealityToolkit.Input.Hands;
+using RealityToolkit.Input.Hands.Poses;
 using RealityToolkit.Input.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -34,35 +34,31 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
             HandPoseAnimationSpeed = profile.HandPoseAnimationSpeed;
 
-            RenderingMode = profile.RenderingMode != inputServiceProfile.RenderingMode
-                ? profile.RenderingMode
-                : inputServiceProfile.RenderingMode;
-
-            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputServiceProfile.HandPhysicsEnabled
+            HandPhysicsEnabled = profile.HandPhysicsEnabled != inputServiceProfile.HandControllerSettings.HandPhysicsEnabled
                 ? profile.HandPhysicsEnabled
-                : inputServiceProfile.HandPhysicsEnabled;
+                : inputServiceProfile.HandControllerSettings.HandPhysicsEnabled;
 
-            UseTriggers = profile.UseTriggers != inputServiceProfile.UseTriggers
+            UseTriggers = profile.UseTriggers != inputServiceProfile.HandControllerSettings.UseTriggers
                 ? profile.UseTriggers
-                : inputServiceProfile.UseTriggers;
+                : inputServiceProfile.HandControllerSettings.UseTriggers;
 
-            BoundsMode = profile.BoundsMode != inputServiceProfile.BoundsMode
+            BoundsMode = profile.BoundsMode != inputServiceProfile.HandControllerSettings.BoundsMode
                 ? profile.BoundsMode
-                : inputServiceProfile.BoundsMode;
+                : inputServiceProfile.HandControllerSettings.BoundsMode;
 
-            var isGrippingThreshold = profile.GripThreshold != inputServiceProfile.GripThreshold
+            var isGrippingThreshold = profile.GripThreshold != inputServiceProfile.HandControllerSettings.GripThreshold
                 ? profile.GripThreshold
-                : inputServiceProfile.GripThreshold;
+                : inputServiceProfile.HandControllerSettings.GripThreshold;
 
             if (profile.TrackedPoses != null && profile.TrackedPoses.Count > 0)
             {
-                TrackedPoses = profile.TrackedPoses.Count != inputServiceProfile.TrackedPoses.Count
+                TrackedPoses = profile.TrackedPoses.Count != inputServiceProfile.HandControllerSettings.TrackedPoses.Count
                     ? profile.TrackedPoses
-                    : inputServiceProfile.TrackedPoses;
+                    : inputServiceProfile.HandControllerSettings.TrackedPoses;
             }
             else
             {
-                TrackedPoses = inputServiceProfile.TrackedPoses;
+                TrackedPoses = inputServiceProfile.HandControllerSettings.TrackedPoses;
             }
 
             if (TrackedPoses == null || TrackedPoses.Count == 0)
@@ -102,9 +98,6 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
 
         /// <inheritdoc />
         public HandBoundsLOD BoundsMode { get; set; }
-
-        /// <inheritdoc />
-        public HandRenderingMode RenderingMode { get; set; }
 
         private IReadOnlyList<HandControllerPoseProfile> TrackedPoses { get; }
 

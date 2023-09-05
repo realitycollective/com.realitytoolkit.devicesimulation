@@ -3,7 +3,8 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
-using RealityToolkit.Definitions.Controllers.Hands;
+using RealityToolkit.Input.Hands;
+using RealityToolkit.Input.Hands.Poses;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,15 +30,6 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         /// Threshold in range [0, 1] that defines when a hand is considered to be grabing.
         /// </summary>
         public float GripThreshold => gripThreshold;
-
-        [SerializeField]
-        [Tooltip("Defines what kind of data should be aggregated for the hands rendering.")]
-        private HandRenderingMode renderingMode = HandRenderingMode.Joints;
-
-        /// <summary>
-        /// Defines what kind of data should be aggregated for the hands rendering.
-        /// </summary>
-        public HandRenderingMode RenderingMode => renderingMode;
 
         [SerializeField]
         [Tooltip("If set, hands will be setup with colliders and a rigidbody to work with Unity's physics system.")]

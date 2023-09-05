@@ -4,8 +4,8 @@
 using RealityCollective.Definitions.Utilities;
 using RealityToolkit.Definitions.Controllers;
 using RealityToolkit.Definitions.Devices;
-using RealityToolkit.Input.Controllers.Hands;
 using RealityToolkit.Input.Extensions;
+using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Interfaces.Modules;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
         public SimulatedHandController() : base() { }
 
         /// <inheritdoc />
-        public SimulatedHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerMappingProfile controllerMappingProfile)
+        public SimulatedHandController(IControllerServiceModule controllerDataProvider, TrackingState trackingState, Handedness controllerHandedness, ControllerProfile controllerMappingProfile)
             : base(controllerDataProvider, trackingState, controllerHandedness, controllerMappingProfile)
         { }
 
