@@ -33,7 +33,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = PlayerService != null ? PlayerService.CameraRig.RigCamera : Camera.main;
+                    playerCamera = PlayerService != null ? PlayerService.PlayerRig.RigCamera : Camera.main;
                 }
 
                 return playerCamera;
@@ -208,7 +208,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             // need to translate to the camera rig's local coordinate space.
             var rootPose = new Pose(position, rotation);
             var rigTransform = PlayerService != null
-                ? PlayerService.CameraRig.RigTransform
+                ? PlayerService.PlayerRig.RigTransform
                 : Camera.main.transform.parent;
             rootPose.position = rigTransform.InverseTransformPoint(rootPose.position);
             rootPose.rotation = Quaternion.Inverse(rigTransform.rotation) * rigTransform.rotation * rootPose.rotation;
