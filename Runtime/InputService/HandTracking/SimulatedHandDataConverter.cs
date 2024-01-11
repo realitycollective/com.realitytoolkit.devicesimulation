@@ -3,7 +3,7 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.CameraService.Interfaces;
+using RealityToolkit.PlayerService.Interfaces;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Hands.Poses;
@@ -20,10 +20,10 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
     /// </summary>
     public sealed class SimulatedHandDataConverter
     {
-        private static ICameraService cameraService = null;
+        private static IPlayerService playerService = null;
 
-        private static ICameraService CameraService
-            => cameraService ?? (cameraService = ServiceManager.Instance.GetService<ICameraService>());
+        private static IPlayerService PlayerService
+            => playerService ??= ServiceManager.Instance.GetService<IPlayerService>();
 
         private static Camera playerCamera = null;
 
@@ -33,7 +33,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             {
                 if (playerCamera == null)
                 {
-                    playerCamera = CameraService != null ? CameraService.CameraRig.RigCamera : Camera.main;
+                    playerCamera = PlayerService != null ? PlayerService.PlayerRig.RigCamera : Camera.main;
                 }
 
                 return playerCamera;
@@ -207,8 +207,8 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             // At this point we know the hand's root pose in world space and
             // need to translate to the camera rig's local coordinate space.
             var rootPose = new Pose(position, rotation);
-            var rigTransform = CameraService != null
-                ? CameraService.CameraRig.RigTransform
+            var rigTransform = PlayerService != null
+                ? PlayerService.PlayerRig.RigTransform
                 : Camera.main.transform.parent;
             rootPose.position = rigTransform.InverseTransformPoint(rootPose.position);
             rootPose.rotation = Quaternion.Inverse(rigTransform.rotation) * rigTransform.rotation * rootPose.rotation;
