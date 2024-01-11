@@ -20,10 +20,10 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
     /// </summary>
     public sealed class SimulatedHandDataConverter
     {
-        private static IPlayerService PlayerService = null;
+        private static IPlayerService playerService = null;
 
         private static IPlayerService PlayerService
-            => PlayerService ?? (PlayerService = ServiceManager.Instance.GetService<IPlayerService>());
+            => playerService ??= ServiceManager.Instance.GetService<IPlayerService>();
 
         private static Camera playerCamera = null;
 
