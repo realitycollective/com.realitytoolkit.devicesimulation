@@ -3,10 +3,10 @@
 
 using RealityCollective.Definitions.Utilities;
 using RealityCollective.ServiceFramework.Services;
-using RealityToolkit.PlayerService.Interfaces;
 using RealityToolkit.Definitions.Devices;
 using RealityToolkit.Input.Hands;
 using RealityToolkit.Input.Hands.Poses;
+using RealityToolkit.Player.Interfaces;
 using RealityToolkit.Utilities;
 using System;
 using System.Collections.Generic;
