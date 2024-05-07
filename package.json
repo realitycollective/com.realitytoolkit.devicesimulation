@@ -2,17 +2,20 @@
   "name": "com.realitytoolkit.devicesimulation",
   "displayName": "RealityToolkit.DeviceSimulation",
   "description": "Development extnsion for the Reality Toolkit implementing simulated controller devices and headsets for faster iteration.",
+  "version": "1.0.0-pre.9",
+  "documentationUrl": "https://realitytoolkit.io",
+  "changelogUrl": "https://github.com/realitycollective/com.realitytoolkit.devicesimulation/releases",
+  "licensesUrl": "https://github.com/realitycollective/com.realitytoolkit.devicesimulation/blob/main/LICENSE.md",
   "keywords": [
     "VR",
     "AR",
     "XR",
     "Mixed Reality"
   ],
-  "version": "1.0.0-pre.9",
-  "unity": "2021.3",
-  "homepage": "https://github.com/realitycollective",
+  "unity": "2022.3",
+  "homepage": "https://realitytoolkit.io",
   "bugs": {
-    "url": "https://github.com/realitycollective/realitytoolkit.dev/issues"
+    "url": "https://github.com/realitycollective/com.realitytoolkit.devicesimulation/issues"
   },
   "license": "MIT",
   "repository": {
@@ -24,9 +27,12 @@
     "email": "realitycollectivedev@gmail.com",
     "url": "https://github.com/realitycollective"
   },
+  "publishConfig": {
+    "registry": "https://package.openupm.com"
+  },
   "dependencies": {
-    "com.realitytoolkit.core": "1.0.0-pre.37",
-    "com.realitytoolkit.player": "1.0.3-pre.1"
+    "com.realitytoolkit.core": "1.0.0-pre.48",
+    "com.realitytoolkit.player": "1.0.4"
   },
   "assets": [
     {
