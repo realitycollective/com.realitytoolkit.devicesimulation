@@ -2,7 +2,7 @@
   "name": "com.realitytoolkit.devicesimulation",
   "displayName": "RealityToolkit.DeviceSimulation",
   "description": "Development extnsion for the Reality Toolkit implementing simulated controller devices and headsets for faster iteration.",
-  "version": "1.0.0-pre.10",
+  "version": "1.0.0-pre.11",
   "documentationUrl": "https://realitytoolkit.io",
   "changelogUrl": "https://github.com/realitycollective/com.realitytoolkit.devicesimulation/releases",
   "licensesUrl": "https://github.com/realitycollective/com.realitytoolkit.devicesimulation/blob/main/LICENSE.md",
