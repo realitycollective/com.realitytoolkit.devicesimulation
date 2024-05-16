@@ -31,8 +31,8 @@
     "registry": "https://package.openupm.com"
   },
   "dependencies": {
-    "com.realitytoolkit.core": "1.0.0-pre.48",
-    "com.realitytoolkit.player": "1.0.4"
+    "com.realitytoolkit.core": "1.0.0-pre.50",
+    "com.realitytoolkit.player": "1.0.5-pre.6"
   },
   "assets": [
     {
