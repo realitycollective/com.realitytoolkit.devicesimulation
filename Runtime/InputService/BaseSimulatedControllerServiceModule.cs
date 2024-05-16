@@ -93,9 +93,9 @@ namespace RealityToolkit.DeviceSimulation.InputService
         public float RotationSpeed { get; }
 
         /// <inheritdoc />
-        public override void Enable()
+        public override void Start()
         {
-            base.Enable();
+            base.Start();
 
             simulatedUpdateStopWatch = new StopWatch();
             simulatedUpdateStopWatch.Reset();
@@ -116,10 +116,10 @@ namespace RealityToolkit.DeviceSimulation.InputService
         }
 
         /// <inheritdoc />
-        public override void Disable()
+        public override void Destroy()
         {
             RemoveAllControllers();
-            base.Disable();
+            base.Destroy();
         }
 
         private void RefreshSimulatedDevices()
