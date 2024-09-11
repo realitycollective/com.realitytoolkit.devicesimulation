@@ -261,10 +261,10 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             {
                 var result = poseDefinitions[i];
 
-                if (UnityEngine.Input.GetKey(result.KeyCode))
-                {
-                    return SimulatedHandControllerPose.GetPoseByName(result.Id);
-                }
+                //if (UnityEngine.Input.GetKey(result.KeyCode))
+                //{
+                //    return SimulatedHandControllerPose.GetPoseByName(result.Id);
+                //}
             }
 
             return SimulatedHandControllerPose.GetPoseByName(SimulatedHandControllerPose.DefaultHandPose.Id);

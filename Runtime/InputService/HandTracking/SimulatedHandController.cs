@@ -42,14 +42,14 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
             new InteractionMapping("Index Finger Pose", AxisType.SixDof, DeviceInputType.IndexFinger),
             
             // Simulation specifics...
-            new InteractionMapping("Yaw Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.E),
-            new InteractionMapping("Yaw Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Q),
-            new InteractionMapping("Pitch Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.F),
-            new InteractionMapping("Pitch Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.R),
-            new InteractionMapping("Roll Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.X),
-            new InteractionMapping("Roll Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.Z),
-            new InteractionMapping("Move Away (Depth)", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.PageUp),
-            new InteractionMapping("Move Closer (Depth)", AxisType.Digital, DeviceInputType.ButtonPress, KeyCode.PageDown)
+            new InteractionMapping("Yaw Clockwise", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Yaw Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Pitch Clockwise", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Pitch Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Roll Clockwise", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Roll Counter Clockwise", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Move Away (Depth)", AxisType.Digital, DeviceInputType.ButtonPress),
+            new InteractionMapping("Move Closer (Depth)", AxisType.Digital, DeviceInputType.ButtonPress)
         };
 
         /// <inheritdoc />
@@ -122,7 +122,7 @@ namespace RealityToolkit.DeviceSimulation.InputService.HandTracking
                 switch (interactionMapping.InputType)
                 {
                     case DeviceInputType.ButtonPress:
-                        interactionMapping.BoolData = UnityEngine.Input.GetKey(interactionMapping.KeyCode);
+                        //interactionMapping.BoolData = UnityEngine.Input.GetKey(interactionMapping.KeyCode);
                         interactionMapping.RaiseInputAction(InputSource, ControllerHandedness);
                         break;
                 }
